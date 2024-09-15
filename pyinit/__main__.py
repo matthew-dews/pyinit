@@ -240,7 +240,12 @@ result
           inherit (poetry2nix.lib.mkPoetry2Nix {{ pkgs = pkgs.${{system}}; }}) mkPoetryApplication;
         in
         {{
-          default = mkPoetryApplication {{ projectDir = self; }};
+          default = mkPoetryApplication {{ 
+            projectDir = self;
+            # Set checkGroups to an empty list to disable the inclusion of dev dependencies
+            # https://github.com/nix-community/poetry2nix/issues/1335
+            checkGroups = [ ];
+          }};
         }}
       );
 
