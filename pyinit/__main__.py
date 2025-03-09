@@ -1,5 +1,6 @@
 import os
 import argparse
+import sys
 
 
 def create_file(path, content):
@@ -15,6 +16,13 @@ def main():
     args = parser.parse_args()
 
     name = args.name
+    
+    # Validate that the name doesn't contain hyphens
+    if "-" in name:
+        print("Error: Hyphens ('-') are not allowed in Python package names.", file=sys.stderr)
+        print("This causes issues with mypy and other tools that expect import names to match package names.", file=sys.stderr)
+        print("Please use underscores ('_') instead.", file=sys.stderr)
+        sys.exit(1)
 
     os.mkdir(name)
     os.chdir(name)
