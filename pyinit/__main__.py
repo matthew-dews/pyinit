@@ -19,9 +19,11 @@ def main():
     
     # Validate that the name doesn't contain hyphens
     if "-" in name:
+        suggested_name = name.replace("-", "_")
         print("Error: Hyphens ('-') are not allowed in Python package names.", file=sys.stderr)
         print("This causes issues with mypy and other tools that expect import names to match package names.", file=sys.stderr)
         print("Please use underscores ('_') instead.", file=sys.stderr)
+        print(f"Suggestion: Use '{suggested_name}' instead of '{name}'", file=sys.stderr)
         sys.exit(1)
 
     os.mkdir(name)
